@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Frohe Weihnachten</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Audio Warning Modal -->
+    <div id="audio-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon">🎧</div>
+            <h2>Bevor es losgeht...</h2>
+            <p>Für das beste Erlebnis, setz dir Kopfhörer auf oder spiel das Lied über eine Box ab!</p>
+            <button id="start-experience" class="start-btn">
+                <span class="btn-text">Weiter</span>
+                <span class="btn-icon">❄️</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="hidden">
+        <!-- Snowfall Container -->
+        <div id="snowfall"></div>
+
+        <!-- Background -->
+        <div class="christmas-background">
+            <div class="stars"></div>
+            <div class="moon"></div>
+        </div>
+
+        <!-- Christmas Tree Scene -->
+        <div class="scene">
+            <!-- Christmas Tree -->
+            <div class="tree-container">
+                <div class="star">★</div>
+                <div class="tree">
+                    <div class="tree-layer layer-1"></div>
+                    <div class="tree-layer layer-2"></div>
+                    <div class="tree-layer layer-3"></div>
+                    <div class="tree-layer layer-4"></div>
+                    <div class="trunk"></div>
+                </div>
+                <!-- Tree Decorations -->
+                <div class="ornaments">
+                    <div class="ornament ornament-1"></div>
+                    <div class="ornament ornament-2"></div>
+                    <div class="ornament ornament-3"></div>
+                    <div class="ornament ornament-4"></div>
+                    <div class="ornament ornament-5"></div>
+                    <div class="ornament ornament-6"></div>
+                </div>
+                <!-- Tree Lights -->
+                <div class="lights">
+                    <div class="light light-1"></div>
+                    <div class="light light-2"></div>
+                    <div class="light light-3"></div>
+                    <div class="light light-4"></div>
+                    <div class="light light-5"></div>
+                    <div class="light light-6"></div>
+                    <div class="light light-7"></div>
+                    <div class="light light-8"></div>
+                </div>
+            </div>
+
+            <!-- Gifts and Card -->
+            <div class="gifts-container">
+                <!-- Card -->
+                <div class="clickable-item card-item" id="card" data-item="card">
+                    <div class="card-envelope">
+                        <div class="envelope-back"></div>
+                        <div class="envelope-front"></div>
+                        <div class="envelope-flap"></div>
+                        <div class="heart-seal">❤️</div>
+                    </div>
+                    <span class="item-label">Karte</span>
+                </div>
+
+                <!-- Gift 1 - Dinner -->
+                <div class="clickable-item gift-item" id="gift-dinner" data-item="dinner">
+                    <div class="gift-box gift-dinner">
+                        <div class="gift-lid">
+                            <div class="ribbon-horizontal"></div>
+                            <div class="bow">
+                                <div class="bow-left"></div>
+                                <div class="bow-right"></div>
+                                <div class="bow-center"></div>
+                            </div>
+                        </div>
+                        <div class="gift-body">
+                            <div class="ribbon-vertical"></div>
+                        </div>
+                    </div>
+                    <span class="item-label">Geschenk</span>
+                </div>
+
+                <!-- Gift 2 - Concert -->
+                <div class="clickable-item gift-item" id="gift-concert" data-item="concert">
+                    <div class="gift-box gift-concert">
+                        <div class="gift-lid">
+                            <div class="ribbon-horizontal"></div>
+                            <div class="bow">
+                                <div class="bow-left"></div>
+                                <div class="bow-right"></div>
+                                <div class="bow-center"></div>
+                            </div>
+                        </div>
+                        <div class="gift-body">
+                            <div class="ribbon-vertical"></div>
+                        </div>
+                    </div>
+                    <span class="item-label">Geschenk</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ground/Snow -->
+        <div class="ground"></div>
+    </div>
+
+    <!-- Card Modal -->
+    <div id="card-modal" class="gift-modal">
+        <div class="gift-modal-content card-modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="card-opened">
+                <div class="card-header">
+                    <span class="decorative-line">✦</span>
+                    <h2>Für Dich</h2>
+                    <span class="decorative-line">✦</span>
+                </div>
+                <div class="card-text" id="card-text"></div>
+                <div class="card-signature">
+                    <span>In Liebe</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dinner Modal -->
+    <div id="dinner-modal" class="gift-modal">
+        <div class="gift-modal-content dinner-modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="gift-reveal">
+                <div class="gift-icon">🍽️</div>
+                <h2>Ein romantisches Abendessen</h2>
+                <p class="gift-description">Wir gehen zusammen schick essen!</p>
+                <div class="gift-image-placeholder" id="dinner-image">
+                    <span>Unser Foto kommt hier hin</span>
+                </div>
+                <div class="restaurant-info" id="restaurant-info">
+                    <p>Restaurant-Details folgen...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Concert Modal -->
+    <div id="concert-modal" class="gift-modal">
+        <div class="gift-modal-content concert-modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="gift-reveal">
+                <div class="gift-icon">🎵</div>
+                <h2>Konzerttickets!</h2>
+                <p class="gift-description">Wir gehen zusammen auf ein Konzert!</p>
+                <div class="gift-image-placeholder" id="concert-image">
+                    <span>Tickets-Bild kommt hier hin</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Player (hidden) -->
+    <audio id="christmas-music" loop>
+        <source src="assets/audio/christmas-song.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

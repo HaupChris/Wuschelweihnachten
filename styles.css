@@ -1,0 +1,791 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(to bottom, #0a1628 0%, #1a365d 50%, #2d4a6f 100%);
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Audio Warning Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a365d 0%, #0a1628 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    color: white;
+    max-width: 90%;
+    width: 350px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.modal-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.modal-content h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #ffd700;
+}
+
+.modal-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    opacity: 0.9;
+}
+
+.start-btn {
+    background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+    border: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(196, 30, 58, 0.4);
+}
+
+.start-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(196, 30, 58, 0.6);
+}
+
+.start-btn:active {
+    transform: translateY(0);
+}
+
+.btn-icon {
+    animation: spin 3s linear infinite;
+}
+
+/* Main Content */
+#main-content {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Christmas Background */
+.christmas-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 60%;
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, white, transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 90px 40px, white, transparent),
+        radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1px 1px at 160px 20px, white, transparent),
+        radial-gradient(2px 2px at 200px 60px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 250px 40px, white, transparent),
+        radial-gradient(2px 2px at 300px 90px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 350px 30px, white, transparent);
+    background-size: 350px 100px;
+    animation: twinkle 4s ease-in-out infinite;
+}
+
+.moon {
+    position: absolute;
+    top: 40px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle at 30% 30%, #fffde7, #ffd54f);
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(255, 213, 79, 0.5);
+}
+
+/* Snowfall */
+#snowfall {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.snowflake {
+    position: absolute;
+    color: white;
+    font-size: 1rem;
+    opacity: 0.8;
+    animation: fall linear infinite;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Scene */
+.scene {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 80px;
+    z-index: 5;
+}
+
+/* Christmas Tree */
+.tree-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.star {
+    font-size: 2.5rem;
+    color: #ffd700;
+    text-shadow: 0 0 20px #ffd700, 0 0 40px #ffa500;
+    animation: glow 1.5s ease-in-out infinite alternate;
+    z-index: 10;
+}
+
+.tree {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tree-layer {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: relative;
+}
+
+.layer-1 {
+    border-width: 0 40px 60px 40px;
+    border-color: transparent transparent #1b5e20 transparent;
+    margin-bottom: -15px;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
+}
+
+.layer-2 {
+    border-width: 0 55px 70px 55px;
+    border-color: transparent transparent #2e7d32 transparent;
+    margin-bottom: -15px;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
+}
+
+.layer-3 {
+    border-width: 0 70px 80px 70px;
+    border-color: transparent transparent #388e3c transparent;
+    margin-bottom: -15px;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
+}
+
+.layer-4 {
+    border-width: 0 85px 90px 85px;
+    border-color: transparent transparent #43a047 transparent;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
+}
+
+.trunk {
+    width: 30px;
+    height: 35px;
+    background: linear-gradient(to right, #5d4037, #795548, #5d4037);
+    border-radius: 0 0 5px 5px;
+}
+
+/* Tree Ornaments */
+.ornaments {
+    position: absolute;
+    width: 170px;
+    height: 280px;
+    top: 30px;
+    pointer-events: none;
+}
+
+.ornament {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    box-shadow: inset -2px -2px 4px rgba(0,0,0,0.3), 0 0 8px currentColor;
+}
+
+.ornament-1 { top: 20px; left: 50%; transform: translateX(-50%); background: #f44336; color: #f44336; }
+.ornament-2 { top: 70px; left: 30%; background: #ffd700; color: #ffd700; }
+.ornament-3 { top: 80px; right: 30%; background: #2196f3; color: #2196f3; }
+.ornament-4 { top: 140px; left: 20%; background: #e91e63; color: #e91e63; }
+.ornament-5 { top: 150px; right: 20%; background: #9c27b0; color: #9c27b0; }
+.ornament-6 { top: 200px; left: 35%; background: #ff9800; color: #ff9800; }
+
+/* Tree Lights */
+.lights {
+    position: absolute;
+    width: 170px;
+    height: 280px;
+    top: 30px;
+    pointer-events: none;
+}
+
+.light {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: blink 1s ease-in-out infinite;
+}
+
+.light-1 { top: 40px; left: 45%; background: #ffeb3b; box-shadow: 0 0 10px #ffeb3b; animation-delay: 0s; }
+.light-2 { top: 60px; right: 35%; background: #f44336; box-shadow: 0 0 10px #f44336; animation-delay: 0.2s; }
+.light-3 { top: 100px; left: 25%; background: #4caf50; box-shadow: 0 0 10px #4caf50; animation-delay: 0.4s; }
+.light-4 { top: 110px; right: 25%; background: #2196f3; box-shadow: 0 0 10px #2196f3; animation-delay: 0.6s; }
+.light-5 { top: 160px; left: 18%; background: #ff9800; box-shadow: 0 0 10px #ff9800; animation-delay: 0.8s; }
+.light-6 { top: 170px; right: 18%; background: #e91e63; box-shadow: 0 0 10px #e91e63; animation-delay: 1s; }
+.light-7 { top: 220px; left: 25%; background: #9c27b0; box-shadow: 0 0 10px #9c27b0; animation-delay: 0.3s; }
+.light-8 { top: 230px; right: 25%; background: #00bcd4; box-shadow: 0 0 10px #00bcd4; animation-delay: 0.7s; }
+
+/* Gifts Container */
+.gifts-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 15px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    padding: 0 10px;
+}
+
+/* Clickable Items (Gifts and Card) */
+.clickable-item {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    animation: wiggle 3s ease-in-out infinite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.clickable-item:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.clickable-item:nth-child(3) {
+    animation-delay: 1s;
+}
+
+.clickable-item:hover {
+    transform: scale(1.1);
+}
+
+.item-label {
+    margin-top: 8px;
+    color: white;
+    font-size: 0.8rem;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    opacity: 0.9;
+}
+
+/* Card Envelope */
+.card-envelope {
+    width: 70px;
+    height: 50px;
+    position: relative;
+}
+
+.envelope-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f5f5dc, #fffef0);
+    border-radius: 3px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+
+.envelope-front {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(180deg, #f5f5dc, #ede8d0);
+    border-radius: 0 0 3px 3px;
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 35px solid transparent;
+    border-right: 35px solid transparent;
+    border-top: 25px solid #e8e0c8;
+}
+
+.heart-seal {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+}
+
+/* Gift Box */
+.gift-box {
+    position: relative;
+}
+
+.gift-dinner .gift-body {
+    width: 65px;
+    height: 50px;
+    background: linear-gradient(135deg, #c41e3a, #8b0000);
+    border-radius: 5px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.gift-dinner .gift-lid {
+    width: 72px;
+    height: 15px;
+    background: linear-gradient(180deg, #d32f2f, #b71c1c);
+    border-radius: 3px;
+    margin-bottom: -2px;
+    position: relative;
+}
+
+.gift-dinner .ribbon-horizontal,
+.gift-dinner .ribbon-vertical {
+    background: linear-gradient(90deg, #ffd700, #ffed4a, #ffd700);
+}
+
+.gift-concert .gift-body {
+    width: 55px;
+    height: 55px;
+    background: linear-gradient(135deg, #1565c0, #0d47a1);
+    border-radius: 5px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.gift-concert .gift-lid {
+    width: 62px;
+    height: 15px;
+    background: linear-gradient(180deg, #1976d2, #1565c0);
+    border-radius: 3px;
+    margin-bottom: -2px;
+    position: relative;
+}
+
+.gift-concert .ribbon-horizontal,
+.gift-concert .ribbon-vertical {
+    background: linear-gradient(90deg, #e0e0e0, #ffffff, #e0e0e0);
+}
+
+.ribbon-horizontal {
+    position: absolute;
+    width: 100%;
+    height: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.ribbon-vertical {
+    position: absolute;
+    width: 10px;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Bow */
+.bow {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bow-left, .bow-right {
+    position: absolute;
+    width: 15px;
+    height: 12px;
+    border-radius: 50% 50% 50% 50%;
+    top: 0;
+}
+
+.gift-dinner .bow-left,
+.gift-dinner .bow-right,
+.gift-dinner .bow-center {
+    background: linear-gradient(180deg, #ffd700, #ffed4a);
+}
+
+.gift-concert .bow-left,
+.gift-concert .bow-right,
+.gift-concert .bow-center {
+    background: linear-gradient(180deg, #e0e0e0, #ffffff);
+}
+
+.bow-left {
+    left: -12px;
+    transform: rotate(-30deg);
+}
+
+.bow-right {
+    right: -12px;
+    transform: rotate(30deg);
+}
+
+.bow-center {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    left: 50%;
+    top: 3px;
+    transform: translateX(-50%);
+}
+
+/* Ground/Snow */
+.ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(180deg, #e3f2fd, #ffffff);
+    border-radius: 100% 100% 0 0 / 30px 30px 0 0;
+    box-shadow: 0 -5px 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Gift Modals */
+.gift-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    animation: fadeIn 0.3s ease;
+}
+
+.gift-modal.active {
+    display: flex;
+}
+
+.gift-modal-content {
+    background: linear-gradient(135deg, #1a365d, #0a1628);
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 90%;
+    width: 380px;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
+    animation: slideUp 0.4s ease;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    z-index: 10;
+}
+
+.close-modal:hover {
+    opacity: 1;
+}
+
+/* Card Modal Content */
+.card-opened {
+    text-align: center;
+    color: white;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.card-header h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: #ffd700;
+}
+
+.decorative-line {
+    color: #ffd700;
+    font-size: 1.5rem;
+}
+
+.card-text {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.4rem;
+    line-height: 1.8;
+    color: #f5f5dc;
+    min-height: 150px;
+    text-align: left;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.card-text .cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background: #ffd700;
+    margin-left: 2px;
+    animation: cursorBlink 0.8s infinite;
+}
+
+.card-signature {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.8rem;
+    color: #ffd700;
+    margin-top: 20px;
+}
+
+/* Gift Reveal Content */
+.gift-reveal {
+    text-align: center;
+    color: white;
+}
+
+.gift-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    animation: bounce 1s ease infinite;
+}
+
+.gift-reveal h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem;
+    color: #ffd700;
+    margin-bottom: 15px;
+}
+
+.gift-description {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+.gift-image-placeholder {
+    width: 100%;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+}
+
+.gift-image-placeholder span {
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+}
+
+.gift-image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 13px;
+}
+
+.restaurant-info {
+    background: rgba(255, 215, 0, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.restaurant-info p {
+    color: #ffd700;
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes glow {
+    0% { text-shadow: 0 0 20px #ffd700, 0 0 40px #ffa500; }
+    100% { text-shadow: 0 0 30px #ffd700, 0 0 60px #ffa500, 0 0 80px #ff8c00; }
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: rotate(-2deg) translateY(0); }
+    25% { transform: rotate(2deg) translateY(-3px); }
+    50% { transform: rotate(-1deg) translateY(0); }
+    75% { transform: rotate(1deg) translateY(-2px); }
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0.3;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes cursorBlink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Responsive Design */
+@media (max-width: 400px) {
+    .tree-container {
+        transform: scale(0.85);
+    }
+
+    .gifts-container {
+        gap: 10px;
+    }
+
+    .gift-modal-content {
+        padding: 20px;
+        width: 95%;
+    }
+
+    .card-header h2 {
+        font-size: 2rem;
+    }
+
+    .card-text {
+        font-size: 1.2rem;
+    }
+}
+
+@media (min-height: 800px) {
+    .scene {
+        padding-bottom: 120px;
+    }
+
+    .tree-container {
+        transform: scale(1.1);
+    }
+}
+
+/* Landscape mode adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+    .tree-container {
+        transform: scale(0.6);
+    }
+
+    .scene {
+        padding-bottom: 40px;
+    }
+
+    .gifts-container {
+        margin-top: 0;
+    }
+
+    .ground {
+        height: 50px;
+    }
+}
