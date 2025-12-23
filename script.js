@@ -20,7 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardText = document.getElementById('card-text');
 
     // Card message - Replace this with your personal message
-    const cardMessage = `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    const cardMessage = `Was ist denn hier los? 
+    
+    Ich kann es nicht glaube, was wir alles erlebt haben! So einekrasse kagga!
+    Ich kann es nicht glaube, was wir alles erlebt haben! So einekrasse kagga!
 
 Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
 
