@@ -34,15 +34,23 @@
         <!-- Background -->
         <div class="christmas-background">
             <div class="stars"></div>
-            <div class="moon"></div>
+            <!-- Easter Egg 1: Moon -->
+            <div class="moon easter-egg" id="ee-moon" data-easter="1"></div>
             <div class="aurora"></div>
+            <!-- Easter Egg 2: Flying Santa -->
+            <div class="flying-santa easter-egg" id="ee-santa" data-easter="2">
+                <span class="santa-emoji">🎅</span>
+                <span class="sleigh-emoji">🛷</span>
+                <span class="reindeer-emoji">🦌</span>
+            </div>
         </div>
 
         <!-- Christmas Tree Scene -->
         <div class="scene">
             <!-- Christmas Tree -->
             <div class="tree-container">
-                <div class="star">★</div>
+                <!-- Easter Egg 3: Tree Star -->
+                <div class="star easter-egg" id="ee-star" data-easter="3">★</div>
                 <div class="tree">
                     <div class="tree-layer layer-1"></div>
                     <div class="tree-layer layer-2"></div>
@@ -50,14 +58,14 @@
                     <div class="tree-layer layer-4"></div>
                     <div class="trunk"></div>
                 </div>
-                <!-- Tree Decorations -->
+                <!-- Tree Decorations - Easter Eggs 4-9 -->
                 <div class="ornaments">
-                    <div class="ornament ornament-1"></div>
-                    <div class="ornament ornament-2"></div>
-                    <div class="ornament ornament-3"></div>
-                    <div class="ornament ornament-4"></div>
-                    <div class="ornament ornament-5"></div>
-                    <div class="ornament ornament-6"></div>
+                    <div class="ornament ornament-1 easter-egg" id="ee-ornament-1" data-easter="4"></div>
+                    <div class="ornament ornament-2 easter-egg" id="ee-ornament-2" data-easter="5"></div>
+                    <div class="ornament ornament-3 easter-egg" id="ee-ornament-3" data-easter="6"></div>
+                    <div class="ornament ornament-4 easter-egg" id="ee-ornament-4" data-easter="7"></div>
+                    <div class="ornament ornament-5 easter-egg" id="ee-ornament-5" data-easter="8"></div>
+                    <div class="ornament ornament-6 easter-egg" id="ee-ornament-6" data-easter="9"></div>
                 </div>
                 <!-- Tree Lights -->
                 <div class="lights">
@@ -147,6 +155,10 @@
             <div class="snow-pile snow-pile-1"></div>
             <div class="snow-pile snow-pile-2"></div>
             <div class="snow-pile snow-pile-3"></div>
+            <!-- Easter Egg 10: Snowman -->
+            <div class="snowman easter-egg" id="ee-snowman" data-easter="10">
+                <div class="snowman-body">⛄</div>
+            </div>
         </div>
     </div>
 
@@ -292,6 +304,21 @@
                         <div class="barcode-lines"></div>
                         <span class="barcode-number">★ 2026 ★ WUSCHEL ★ BACHERS ★</span>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Easter Egg Modal -->
+    <div id="easter-egg-modal" class="gift-modal">
+        <div class="gift-modal-content easter-egg-modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="easter-egg-reveal">
+                <div class="easter-egg-badge">🥚</div>
+                <h2>Easter Egg gefunden!</h2>
+                <p class="easter-egg-number">Nr. <span id="ee-number">1</span> von 10</p>
+                <div class="easter-egg-image-container">
+                    <img src="" alt="Easter Egg" class="easter-egg-photo" id="ee-image">
                 </div>
             </div>
         </div>

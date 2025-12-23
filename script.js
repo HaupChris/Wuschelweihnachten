@@ -329,8 +329,86 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 
     // Prevent context menu on long press (mobile)
     document.addEventListener('contextmenu', (e) => {
-        if (e.target.closest('.clickable-item')) {
+        if (e.target.closest('.clickable-item') || e.target.closest('.easter-egg')) {
             e.preventDefault();
         }
+    });
+
+    // ====================
+    // EASTER EGGS
+    // ====================
+    const easterEggModal = document.getElementById('easter-egg-modal');
+    const easterEggNumber = document.getElementById('ee-number');
+    const easterEggImage = document.getElementById('ee-image');
+
+    // Track found easter eggs
+    const foundEasterEggs = new Set();
+
+    // Easter egg click handler
+    function handleEasterEggClick(e) {
+        const easterEgg = e.target.closest('.easter-egg');
+        if (!easterEgg) return;
+
+        const eggNumber = easterEgg.dataset.easter;
+        if (!eggNumber) return;
+
+        // Mark as found
+        foundEasterEggs.add(eggNumber);
+
+        // Update modal content
+        easterEggNumber.textContent = eggNumber;
+        easterEggImage.src = `assets/images/easter-eggs/${eggNumber}.jpg`;
+
+        // Handle image load error (fallback to png or show placeholder)
+        easterEggImage.onerror = function() {
+            this.src = `assets/images/easter-eggs/${eggNumber}.png`;
+            this.onerror = function() {
+                this.src = `assets/images/easter-eggs/${eggNumber}.jpeg`;
+                this.onerror = function() {
+                    this.src = '';
+                };
+            };
+        };
+
+        // Open modal
+        openModal(easterEggModal);
+        animateEasterEggReveal();
+    }
+
+    // Animate Easter Egg Modal Reveal
+    function animateEasterEggReveal() {
+        const badge = easterEggModal.querySelector('.easter-egg-badge');
+        const title = easterEggModal.querySelector('h2');
+        const number = easterEggModal.querySelector('.easter-egg-number');
+        const imageContainer = easterEggModal.querySelector('.easter-egg-image-container');
+
+        const elements = [badge, title, number, imageContainer];
+        elements.forEach((el, index) => {
+            if (el) {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px) scale(0.9)';
+                setTimeout(() => {
+                    el.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0) scale(1)';
+                }, 100 + index * 120);
+            }
+        });
+    }
+
+    // Attach click handlers to all easter eggs
+    document.querySelectorAll('.easter-egg').forEach(egg => {
+        egg.addEventListener('click', handleEasterEggClick);
+    });
+
+    // Add touch feedback for easter eggs
+    document.querySelectorAll('.easter-egg').forEach(item => {
+        item.addEventListener('touchstart', () => {
+            item.style.transform = 'scale(1.15)';
+        }, { passive: true });
+
+        item.addEventListener('touchend', () => {
+            item.style.transform = '';
+        }, { passive: true });
     });
 });
