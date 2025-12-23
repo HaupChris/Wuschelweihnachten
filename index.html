@@ -7,18 +7,21 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Audio Warning Modal -->
     <div id="audio-modal" class="modal">
         <div class="modal-content">
+            <div class="modal-snowflakes">
+                <span>❄</span><span>❅</span><span>❆</span>
+            </div>
             <div class="modal-icon">🎧</div>
             <h2>Bevor es losgeht...</h2>
             <p>Für das beste Erlebnis, setz dir Kopfhörer auf oder spiel das Lied über eine Box ab!</p>
             <button id="start-experience" class="start-btn">
-                <span class="btn-text">Weiter</span>
-                <span class="btn-icon">❄️</span>
+                <span class="btn-text">Erlebnis starten</span>
+                <span class="btn-icon">✨</span>
             </button>
         </div>
     </div>
@@ -32,6 +35,7 @@
         <div class="christmas-background">
             <div class="stars"></div>
             <div class="moon"></div>
+            <div class="aurora"></div>
         </div>
 
         <!-- Christmas Tree Scene -->
@@ -66,6 +70,8 @@
                     <div class="light light-7"></div>
                     <div class="light light-8"></div>
                 </div>
+                <!-- Garland -->
+                <div class="garland"></div>
             </div>
 
             <!-- Gifts and Card -->
@@ -81,8 +87,28 @@
                     <span class="item-label">Karte</span>
                 </div>
 
-                <!-- Gift 1 - Dinner -->
+                <!-- Gift 1 - Sport -->
+                <div class="clickable-item gift-item" id="gift-sport" data-item="sport">
+                    <div class="gift-number">1</div>
+                    <div class="gift-box gift-sport">
+                        <div class="gift-lid">
+                            <div class="ribbon-horizontal"></div>
+                            <div class="bow">
+                                <div class="bow-left"></div>
+                                <div class="bow-right"></div>
+                                <div class="bow-center"></div>
+                            </div>
+                        </div>
+                        <div class="gift-body">
+                            <div class="ribbon-vertical"></div>
+                        </div>
+                    </div>
+                    <span class="item-label">Geschenk 1</span>
+                </div>
+
+                <!-- Gift 2 - Dinner -->
                 <div class="clickable-item gift-item" id="gift-dinner" data-item="dinner">
+                    <div class="gift-number">2</div>
                     <div class="gift-box gift-dinner">
                         <div class="gift-lid">
                             <div class="ribbon-horizontal"></div>
@@ -96,11 +122,12 @@
                             <div class="ribbon-vertical"></div>
                         </div>
                     </div>
-                    <span class="item-label">Geschenk</span>
+                    <span class="item-label">Geschenk 2</span>
                 </div>
 
-                <!-- Gift 2 - Concert -->
+                <!-- Gift 3 - Concert -->
                 <div class="clickable-item gift-item" id="gift-concert" data-item="concert">
+                    <div class="gift-number">3</div>
                     <div class="gift-box gift-concert">
                         <div class="gift-lid">
                             <div class="ribbon-horizontal"></div>
@@ -114,13 +141,17 @@
                             <div class="ribbon-vertical"></div>
                         </div>
                     </div>
-                    <span class="item-label">Geschenk</span>
+                    <span class="item-label">Geschenk 3</span>
                 </div>
             </div>
         </div>
 
         <!-- Ground/Snow -->
-        <div class="ground"></div>
+        <div class="ground">
+            <div class="snow-pile snow-pile-1"></div>
+            <div class="snow-pile snow-pile-2"></div>
+            <div class="snow-pile snow-pile-3"></div>
+        </div>
     </div>
 
     <!-- Card Modal -->
@@ -128,14 +159,51 @@
         <div class="gift-modal-content card-modal-content">
             <button class="close-modal">&times;</button>
             <div class="card-opened">
+                <div class="card-image-container">
+                    <img src="assets/images/card.jpg" alt="Wir zwei" class="card-photo">
+                    <div class="photo-frame"></div>
+                </div>
                 <div class="card-header">
-                    <span class="decorative-line">✦</span>
+                    <span class="decorative-ornament">❧</span>
                     <h2>Für Dich</h2>
-                    <span class="decorative-line">✦</span>
+                    <span class="decorative-ornament">❧</span>
                 </div>
                 <div class="card-text" id="card-text"></div>
                 <div class="card-signature">
                     <span>In Liebe</span>
+                    <div class="signature-hearts">💕</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sport Modal -->
+    <div id="sport-modal" class="gift-modal">
+        <div class="gift-modal-content sport-modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="sport-reveal">
+                <div class="sport-badge">
+                    <span class="badge-icon">🏃‍♂️</span>
+                    <span class="badge-icon">🏃‍♀️</span>
+                </div>
+                <h2>Ein Tag nur für uns!</h2>
+                <p class="sport-subtitle">Sport, Spaß & Zeit zu zweit</p>
+                <div class="sport-image-container">
+                    <img src="assets/images/sport.jpg" alt="Wir beim Sport" class="sport-photo">
+                </div>
+                <div class="sport-details">
+                    <div class="sport-item">
+                        <span class="sport-emoji">☀️</span>
+                        <span>Ein ganzer Tag zusammen</span>
+                    </div>
+                    <div class="sport-item">
+                        <span class="sport-emoji">💪</span>
+                        <span>Gemeinsam aktiv sein</span>
+                    </div>
+                    <div class="sport-item">
+                        <span class="sport-emoji">❤️</span>
+                        <span>Quality Time für uns</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -145,16 +213,39 @@
     <div id="dinner-modal" class="gift-modal">
         <div class="gift-modal-content dinner-modal-content">
             <button class="close-modal">&times;</button>
-            <div class="gift-reveal">
-                <div class="gift-icon">🍽️</div>
-                <h2>Ein romantisches Abendessen</h2>
-                <p class="gift-description">Wir gehen zusammen schick essen!</p>
-                <div class="gift-image-placeholder" id="dinner-image">
-                    <span>Unser Foto kommt hier hin</span>
+            <div class="silver-tray">
+                <div class="tray-rim"></div>
+                <div class="tray-inner">
+                    <div class="tray-handles">
+                        <div class="handle handle-left"></div>
+                        <div class="handle handle-right"></div>
+                    </div>
+                    <div class="dinner-content">
+                        <div class="cloche-icon">🍽️</div>
+                        <h2>Dinner for Two</h2>
+                        <div class="dinner-divider">
+                            <span>✦</span>
+                            <span class="divider-line"></span>
+                            <span>✦</span>
+                        </div>
+                        <div class="dinner-image-container">
+                            <img src="assets/images/dinner.jpg" alt="Romantisches Dinner" class="dinner-photo">
+                        </div>
+                        <div class="reservation-card">
+                            <div class="reservation-header">
+                                <span class="res-icon">📋</span>
+                                <span>Reservierung</span>
+                            </div>
+                            <div class="reservation-details">
+                                <p class="res-main">Ein exquisites Abendessen</p>
+                                <p class="res-note">für zwei Personen</p>
+                                <div class="res-divider"></div>
+                                <p class="res-special">✨ Das Restaurant suchen wir uns gemeinsam aus! ✨</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="restaurant-info" id="restaurant-info">
-                    <p>Restaurant-Details folgen...</p>
-                </div>
+                <div class="tray-reflection"></div>
             </div>
         </div>
     </div>
@@ -163,12 +254,48 @@
     <div id="concert-modal" class="gift-modal">
         <div class="gift-modal-content concert-modal-content">
             <button class="close-modal">&times;</button>
-            <div class="gift-reveal">
-                <div class="gift-icon">🎵</div>
-                <h2>Konzerttickets!</h2>
-                <p class="gift-description">Wir gehen zusammen auf ein Konzert!</p>
-                <div class="gift-image-placeholder" id="concert-image">
-                    <span>Tickets-Bild kommt hier hin</span>
+            <div class="concert-ticket">
+                <div class="ticket-stub">
+                    <div class="stub-content">
+                        <span class="stub-text">ADMIT</span>
+                        <span class="stub-number">TWO</span>
+                    </div>
+                    <div class="perforation"></div>
+                </div>
+                <div class="ticket-main">
+                    <div class="ticket-header">
+                        <div class="ticket-logo">🎼</div>
+                        <div class="ticket-type">KONZERT</div>
+                    </div>
+                    <div class="ticket-artist">
+                        <h2>Duo Stiehler/Lucaciu</h2>
+                        <p class="featuring">feat. Gewandhauschor</p>
+                    </div>
+                    <div class="ticket-image-container">
+                        <img src="assets/images/concert.jpg" alt="Konzert" class="concert-photo">
+                    </div>
+                    <div class="ticket-details">
+                        <div class="detail-row">
+                            <div class="detail-item">
+                                <span class="detail-label">DATUM</span>
+                                <span class="detail-value">20. Juni 2026</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">UHRZEIT</span>
+                                <span class="detail-value">21:30 Uhr</span>
+                            </div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-item full-width">
+                                <span class="detail-label">LOCATION</span>
+                                <span class="detail-value venue">Museum der Bildenden Künste</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ticket-barcode">
+                        <div class="barcode-lines"></div>
+                        <span class="barcode-number">★ 2026 ★ LOVE ★ MUSIC ★</span>
+                    </div>
                 </div>
             </div>
         </div>

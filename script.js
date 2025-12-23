@@ -8,10 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const christmasMusic = document.getElementById('christmas-music');
 
     const cardItem = document.getElementById('card');
+    const giftSport = document.getElementById('gift-sport');
     const giftDinner = document.getElementById('gift-dinner');
     const giftConcert = document.getElementById('gift-concert');
 
     const cardModal = document.getElementById('card-modal');
+    const sportModal = document.getElementById('sport-modal');
     const dinnerModal = document.getElementById('dinner-modal');
     const concertModal = document.getElementById('concert-modal');
 
@@ -28,14 +30,26 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 
     // Start Experience Button Click
     startButton.addEventListener('click', () => {
-        audioModal.style.display = 'none';
-        mainContent.classList.remove('hidden');
+        // Fade out the modal
+        audioModal.style.transition = 'opacity 0.5s ease';
+        audioModal.style.opacity = '0';
 
-        // Try to play music (may be blocked by browser autoplay policy)
-        playMusic();
+        setTimeout(() => {
+            audioModal.style.display = 'none';
+            mainContent.classList.remove('hidden');
+            mainContent.style.opacity = '0';
+            mainContent.style.transition = 'opacity 0.8s ease';
 
-        // Create snowfall effect
-        createSnowfall();
+            setTimeout(() => {
+                mainContent.style.opacity = '1';
+            }, 50);
+
+            // Try to play music
+            playMusic();
+
+            // Create snowfall effect
+            createSnowfall();
+        }, 500);
     });
 
     // Play Music Function
@@ -64,9 +78,9 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
             snowflake.className = 'snowflake';
             snowflake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
             snowflake.style.left = Math.random() * 100 + 'vw';
-            snowflake.style.fontSize = (Math.random() * 10 + 8) + 'px';
-            snowflake.style.opacity = Math.random() * 0.6 + 0.4;
-            snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            snowflake.style.fontSize = (Math.random() * 12 + 8) + 'px';
+            snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+            snowflake.style.animationDuration = (Math.random() * 6 + 6) + 's';
             snowflake.style.animationDelay = Math.random() * 2 + 's';
 
             snowfallContainer.appendChild(snowflake);
@@ -74,19 +88,19 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
             // Remove snowflake after animation
             setTimeout(() => {
                 snowflake.remove();
-            }, 12000);
+            }, 14000);
         }
 
         // Create initial snowflakes
-        for (let i = 0; i < 20; i++) {
-            setTimeout(createSnowflake, i * 200);
+        for (let i = 0; i < 25; i++) {
+            setTimeout(createSnowflake, i * 150);
         }
 
         // Continue creating snowflakes
-        setInterval(createSnowflake, 400);
+        setInterval(createSnowflake, 350);
     }
 
-    // Open Modal Function
+    // Open Modal Function with animation
     function openModal(modal) {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -94,8 +108,17 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 
     // Close Modal Function
     function closeModal(modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
+        const content = modal.querySelector('.gift-modal-content');
+        content.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+        content.style.transform = 'translateY(30px) scale(0.95)';
+        content.style.opacity = '0';
+
+        setTimeout(() => {
+            modal.classList.remove('active');
+            content.style.transform = '';
+            content.style.opacity = '';
+            document.body.style.overflow = '';
+        }, 300);
     }
 
     // Card Click - Open and Stream Text
@@ -104,16 +127,22 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
         streamText(cardText, cardMessage);
     });
 
+    // Gift Sport Click
+    giftSport.addEventListener('click', () => {
+        openModal(sportModal);
+        animateSportReveal(sportModal);
+    });
+
     // Gift Dinner Click
     giftDinner.addEventListener('click', () => {
         openModal(dinnerModal);
-        animateGiftReveal(dinnerModal);
+        animateDinnerReveal(dinnerModal);
     });
 
     // Gift Concert Click
     giftConcert.addEventListener('click', () => {
         openModal(concertModal);
-        animateGiftReveal(concertModal);
+        animateConcertReveal(concertModal);
     });
 
     // Stream Text Effect (like typing)
@@ -135,7 +164,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
                 index++;
 
                 // Random typing speed for natural effect
-                const speed = Math.random() * 30 + 20;
+                const speed = Math.random() * 25 + 18;
                 setTimeout(typeChar, speed);
             } else {
                 // Remove cursor after typing is done
@@ -146,18 +175,51 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
         }
 
         // Start typing with a small delay
-        setTimeout(typeChar, 500);
+        setTimeout(typeChar, 600);
     }
 
-    // Animate Gift Reveal
-    function animateGiftReveal(modal) {
-        const icon = modal.querySelector('.gift-icon');
+    // Animate Sport Modal Reveal
+    function animateSportReveal(modal) {
+        const badge = modal.querySelector('.sport-badge');
         const title = modal.querySelector('h2');
-        const description = modal.querySelector('.gift-description');
-        const imagePlaceholder = modal.querySelector('.gift-image-placeholder');
+        const subtitle = modal.querySelector('.sport-subtitle');
+        const imageContainer = modal.querySelector('.sport-image-container');
+        const details = modal.querySelector('.sport-details');
 
-        // Reset and animate elements
-        const elements = [icon, title, description, imagePlaceholder];
+        const elements = [badge, title, subtitle, imageContainer, details];
+        elements.forEach((el, index) => {
+            if (el) {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(25px)';
+                setTimeout(() => {
+                    el.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 150 + index * 150);
+            }
+        });
+    }
+
+    // Animate Dinner Modal Reveal (Silver Tray)
+    function animateDinnerReveal(modal) {
+        const tray = modal.querySelector('.silver-tray');
+        const icon = modal.querySelector('.cloche-icon');
+        const title = modal.querySelector('h2');
+        const imageContainer = modal.querySelector('.dinner-image-container');
+        const card = modal.querySelector('.reservation-card');
+
+        // Tray entrance
+        if (tray) {
+            tray.style.opacity = '0';
+            tray.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                tray.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                tray.style.opacity = '1';
+                tray.style.transform = 'scale(1)';
+            }, 100);
+        }
+
+        const elements = [icon, title, imageContainer, card];
         elements.forEach((el, index) => {
             if (el) {
                 el.style.opacity = '0';
@@ -166,7 +228,42 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
                     el.style.transition = 'all 0.5s ease';
                     el.style.opacity = '1';
                     el.style.transform = 'translateY(0)';
-                }, 200 + index * 200);
+                }, 400 + index * 150);
+            }
+        });
+    }
+
+    // Animate Concert Modal Reveal (Ticket)
+    function animateConcertReveal(modal) {
+        const ticket = modal.querySelector('.concert-ticket');
+        const stub = modal.querySelector('.ticket-stub');
+        const header = modal.querySelector('.ticket-header');
+        const artist = modal.querySelector('.ticket-artist');
+        const imageContainer = modal.querySelector('.ticket-image-container');
+        const details = modal.querySelector('.ticket-details');
+        const barcode = modal.querySelector('.ticket-barcode');
+
+        // Ticket slide in
+        if (ticket) {
+            ticket.style.opacity = '0';
+            ticket.style.transform = 'translateX(-30px) rotate(-2deg)';
+            setTimeout(() => {
+                ticket.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                ticket.style.opacity = '1';
+                ticket.style.transform = 'translateX(0) rotate(0deg)';
+            }, 100);
+        }
+
+        const elements = [header, artist, imageContainer, details, barcode];
+        elements.forEach((el, index) => {
+            if (el) {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(15px)';
+                setTimeout(() => {
+                    el.style.transition = 'all 0.4s ease';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 500 + index * 100);
             }
         });
     }
@@ -179,7 +276,9 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 
             // Reset card text for next time
             if (modal === cardModal) {
-                cardText.innerHTML = '';
+                setTimeout(() => {
+                    cardText.innerHTML = '';
+                }, 300);
             }
         });
     });
@@ -192,19 +291,23 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 
                 // Reset card text for next time
                 if (modal === cardModal) {
-                    cardText.innerHTML = '';
+                    setTimeout(() => {
+                        cardText.innerHTML = '';
+                    }, 300);
                 }
             }
         });
     });
 
-    // Prevent scrolling when modal is open
+    // Escape key to close modal
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             document.querySelectorAll('.gift-modal.active').forEach(modal => {
                 closeModal(modal);
                 if (modal === cardModal) {
-                    cardText.innerHTML = '';
+                    setTimeout(() => {
+                        cardText.innerHTML = '';
+                    }, 300);
                 }
             });
         }
@@ -213,11 +316,18 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
     // Add touch feedback for mobile
     document.querySelectorAll('.clickable-item').forEach(item => {
         item.addEventListener('touchstart', () => {
-            item.style.transform = 'scale(1.05)';
-        });
+            item.style.transform = 'scale(1.08) translateY(-3px)';
+        }, { passive: true });
 
         item.addEventListener('touchend', () => {
             item.style.transform = '';
-        });
+        }, { passive: true });
+    });
+
+    // Prevent context menu on long press (mobile)
+    document.addEventListener('contextmenu', (e) => {
+        if (e.target.closest('.clickable-item')) {
+            e.preventDefault();
+        }
     });
 });
