@@ -20,16 +20,49 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardText = document.getElementById('card-text');
 
     // Card message - Replace this with your personal message
-    const cardMessage = `Was ist denn hier los? 
+    const cardMessage = `Liiieeebeee Julesia :) 
     
-    Ich kann es nicht glaube, was wir alles erlebt haben! So einekrasse kagga!
-    Ich kann es nicht glaube, was wir alles erlebt haben! So einekrasse kagga!
-
-Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
-
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
+    Es ist so weit! 
+    Weihnachten ist da,
+    das Christkind freut - 
+    sich über die Maßen dir tolle Geschenke zu bringen. 
+    
+    Und die erste Überraschung: Das Christkind bin ich! 
+    
+    Der Haubatz. 
+    
+    Zwar nicht in Persona, aber dafür ganz Informatiker mäßig. 
+    
+    Und los geht der Spaß!
+    
+    Das erste und größte Geschenk? Das bist du! Bzw. ich... also WIR. 
+    
+    Es ist nämlich so, dass es einfach immer schöner wird. Mit dir. Also mit uns. Und deswegen können wir 
+    uns auch uns immer wieder gegenseitig schenken und es ist jedes mal wieder toll. 
+    
+    Und wie machen wir das? 
+    
+    Schaus dir am besten selbst an, was ich (also der Haubolaus) mir da so überlegt habe :) 
+    
+    
+    Bevor du das machst, hab ich noch ein paar Worte für dich: 
+    
+    Ich bin sooo froh, dass du stets an meiner Seite bist. Ich danke dir von ganzem Herzen für den Support. 
+    Ich weiß, dass ich mich voll und ganz auf dich verlassen kann und du kannst dich auch immer auf mich verlassen. 
+    Genauso danke ich dir für deine Leichtigkeit, die dazu führt, dass du zu fast jeder Zeit ein Lachen parat hast - und wenn es gerade nicht da ist, hab ich wirklich wenig Mühe es zu dir zurück zu bringen. 
+    
+    Dankbar bin ich auch noch dafür, dass du so eine kluge und clevere Wuschlerin bist. Dein Interesse immer wieder neue Dinge zu entdecken und zu lernen, inspiriert mich jedes mal aufs neue und die Bücher die du kaufst werd ich weiterhin gern lesen. 
+    
+    Hoffentlich haben wir noch ganz oft Lust uns uns gegenseitig wieder zu schenken!
+    
+    Ich freu mich auf dich! 
+    
+    Dein Haubi
+    
+    PS.: Drei Geschenke liegen unterm Baum! Gibts noch mehr? 
+    
+    
+   `;
 
     // Start Experience Button Click
     startButton.addEventListener('click', () => {
@@ -167,7 +200,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
                 index++;
 
                 // Random typing speed for natural effect
-                const speed = Math.random() * 25 + 18;
+                const speed = Math.random() * 35 + 18;
                 setTimeout(typeChar, speed);
             } else {
                 // Remove cursor after typing is done

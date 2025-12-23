@@ -826,14 +826,14 @@ body {
     letter-spacing: 0.3px;
 }
 
-.card-text .cursor {
-    display: inline-block;
-    width: 2px;
-    height: 1.3em;
-    background: #ffd700;
-    margin-left: 3px;
-    animation: cursorBlink 0.8s infinite;
-}
+/*.card-text .cursor {*/
+/*    display: inline-block;*/
+/*    width: 2px;*/
+/*    height: 1.3em;*/
+/*    background: #ffd700;*/
+/*    margin-left: 3px;*/
+/*    animation: cursorBlink 0.8s infinite;*/
+/*}*/
 
 .card-signature {
     font-family: 'Great Vibes', cursive;
@@ -1596,7 +1596,7 @@ body {
     }
 
     .easter-egg-image-container {
-        height: 180px;
+        height: 300px;
     }
 
     .ee-decor {
