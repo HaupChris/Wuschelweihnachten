@@ -377,21 +377,22 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 
     // Animate Easter Egg Modal Reveal
     function animateEasterEggReveal() {
-        const badge = easterEggModal.querySelector('.easter-egg-badge');
+        const header = easterEggModal.querySelector('.easter-egg-header');
         const title = easterEggModal.querySelector('h2');
         const number = easterEggModal.querySelector('.easter-egg-number');
         const imageContainer = easterEggModal.querySelector('.easter-egg-image-container');
+        const footer = easterEggModal.querySelector('.ee-footer-decor');
 
-        const elements = [badge, title, number, imageContainer];
+        const elements = [header, title, number, imageContainer, footer];
         elements.forEach((el, index) => {
             if (el) {
                 el.style.opacity = '0';
-                el.style.transform = 'translateY(20px) scale(0.9)';
+                el.style.transform = 'translateY(15px) scale(0.95)';
                 setTimeout(() => {
-                    el.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    el.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
                     el.style.opacity = '1';
                     el.style.transform = 'translateY(0) scale(1)';
-                }, 100 + index * 120);
+                }, 80 + index * 100);
             }
         });
     }
