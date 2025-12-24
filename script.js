@@ -1,7 +1,43 @@
 // Christmas Gift Website JavaScript
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Elements
+    // ====================
+    // STATE MANAGEMENT
+    // ====================
+    const STATE_KEY = 'weihnachten_state';
+
+    // Load state from localStorage
+    function loadState() {
+        try {
+            const saved = localStorage.getItem(STATE_KEY);
+            return saved ? JSON.parse(saved) : {
+                cardOpened: false,
+                giftsOpened: { sport: false, dinner: false, concert: false },
+                easterEggsFound: []
+            };
+        } catch (e) {
+            return {
+                cardOpened: false,
+                giftsOpened: { sport: false, dinner: false, concert: false },
+                easterEggsFound: []
+            };
+        }
+    }
+
+    // Save state to localStorage
+    function saveState() {
+        try {
+            localStorage.setItem(STATE_KEY, JSON.stringify(state));
+        } catch (e) {
+            console.log('Could not save state');
+        }
+    }
+
+    const state = loadState();
+
+    // ====================
+    // ELEMENTS
+    // ====================
     const audioModal = document.getElementById('audio-modal');
     const mainContent = document.getElementById('main-content');
     const startButton = document.getElementById('start-experience');
@@ -20,56 +56,86 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardText = document.getElementById('card-text');
 
     // Card message - Replace this with your personal message
-    const cardMessage = `Liiieeebeee Julesia :) 
-    
-    Es ist so weit! 
+    const cardMessage = `Liiieeebeee Julesia :)
+
+    Es ist so weit!
     Weihnachten ist da,
-    das Christkind freut - 
-    sich über die Maßen dir tolle Geschenke zu bringen. 
-    
-    Und die erste Überraschung: Das Christkind bin ich! 
-    
-    Der Haubatz. 
-    
-    Zwar nicht in Persona, aber dafür ganz im Informatiker Style. 
-    
+    das Christkind freut -
+    sich über die Maßen dir tolle Geschenke zu bringen.
+
+    Und die erste Überraschung: Das Christkind bin ich!
+
+    Der Haubatz.
+
+    Zwar nicht in Persona, aber dafür ganz im Informatiker Style.
+
     Also lass uns beginnen, es ist Zeit für die Bescherung!
-    
-    Das erste und größte Geschenk? Das bist du! Bzw. ich... also WIR. 
-    
-    Es ist nämlich so, dass es einfach immer schöner wird. Mit dir. Mit uns. Und deswegen können wir 
-    uns auch uns immer wieder gegenseitig schenken und es ist jedes mal wieder toll. 
-    
-    Und wie machen wir das? 
-    
-    Schaus dir am besten selbst an, was ich (also der Haubolaus) mir da so überlegt habe :) 
-    
-    
-    Bevor du das machst, hab ich noch ein paar Worte für dich: 
-    
-    Ich bin unendlich froh, dass du stets an meiner Seite bist. Ich danke dir von ganzem Herzen für den Support, den du mir jeden Tag entgegen bringst. 
-    Ich weiß, dass ich mich voll und ganz auf dich verlassen kann und du kannst dich auch immer auf mich verlassen. 
-    Genauso danke ich dir für deine Leichtigkeit, die dazu führt, dass du zu fast jeder Zeit ein Lachen parat hast - und wenn es gerade nicht da ist, hab ich wirklich wenig Mühe es zu dir zurück zu bringen. 
-    
-    Dankbar bin ich auch noch dafür, dass du so eine kluge und clevere Wuschlerin bist. Dein Interesse immer wieder neue Dinge zu entdecken und zu lernen, inspiriert mich jedes mal aufs neue und die Bücher die du kaufst werd ich weiterhin gern lesen. 
-    
+
+    Das erste und größte Geschenk? Das bist du! Bzw. ich... also WIR.
+
+    Es ist nämlich so, dass es einfach immer schöner wird. Mit dir. Mit uns. Und deswegen können wir
+    uns auch uns immer wieder gegenseitig schenken und es ist jedes mal wieder toll.
+
+    Und wie machen wir das?
+
+    Schaus dir am besten selbst an, was ich (also der Haubolaus) mir da so überlegt habe :)
+
+
+    Bevor du das machst, hab ich noch ein paar Worte für dich:
+
+    Ich bin unendlich froh, dass du stets an meiner Seite bist. Ich danke dir von ganzem Herzen für den Support, den du mir jeden Tag entgegen bringst.
+    Ich weiß, dass ich mich voll und ganz auf dich verlassen kann und du kannst dich auch immer auf mich verlassen.
+    Genauso danke ich dir für deine Leichtigkeit, die dazu führt, dass du zu fast jeder Zeit ein Lachen parat hast - und wenn es gerade nicht da ist, hab ich wirklich wenig Mühe es zu dir zurück zu bringen.
+
+    Dankbar bin ich auch noch dafür, dass du so eine kluge und clevere Wuschlerin bist. Dein Interesse immer wieder neue Dinge zu entdecken und zu lernen, inspiriert mich jedes mal aufs neue und die Bücher die du kaufst werd ich weiterhin gern lesen.
+
     Hoffentlich haben wir noch ganz oft Lust uns uns gegenseitig wieder zu schenken!
-    
+
     Ich freu mich auf dich!
-    
-    
-    Und nun ist es Zeit für die Bescherung!  
-    
+
+
+    Und nun ist es Zeit für die Bescherung!
+
     Dein Haubi
-    
-    PS.: Drei Geschenke liegen unterm Baum! Gibts noch mehr? 
-    
-    
+
+    PS.: Drei Geschenke liegen unterm Baum! Gibts noch mehr?
+
+
    `;
 
-    // Start Experience Button Click
+    // ====================
+    // INITIALIZE STATE ON LOAD
+    // ====================
+    function initializeOpenedStates() {
+        // Card
+        if (state.cardOpened) {
+            cardItem.classList.add('opened');
+        }
+
+        // Gifts
+        if (state.giftsOpened.sport) {
+            giftSport.classList.add('opened');
+        }
+        if (state.giftsOpened.dinner) {
+            giftDinner.classList.add('opened');
+        }
+        if (state.giftsOpened.concert) {
+            giftConcert.classList.add('opened');
+        }
+
+        // Easter Eggs
+        state.easterEggsFound.forEach(eggNum => {
+            const egg = document.querySelector(`[data-easter="${eggNum}"]`);
+            if (egg) {
+                egg.classList.add('found');
+            }
+        });
+    }
+
+    // ====================
+    // START EXPERIENCE
+    // ====================
     startButton.addEventListener('click', () => {
-        // Fade out the modal
         audioModal.style.transition = 'opacity 0.5s ease';
         audioModal.style.opacity = '0';
 
@@ -81,25 +147,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
             setTimeout(() => {
                 mainContent.style.opacity = '1';
+                // Initialize opened states after content is visible
+                initializeOpenedStates();
             }, 50);
 
-            // Try to play music
             playMusic();
-
-            // Create snowfall effect
             createSnowfall();
         }, 500);
     });
 
-    // Play Music Function
+    // ====================
+    // MUSIC
+    // ====================
     function playMusic() {
         christmasMusic.volume = 0.5;
         const playPromise = christmasMusic.play();
 
         if (playPromise !== undefined) {
             playPromise.catch(error => {
-                console.log('Autoplay was prevented. User interaction needed.');
-                // Add click listener to start music on first interaction
+                console.log('Autoplay was prevented.');
                 document.addEventListener('click', () => {
                     christmasMusic.play().catch(e => console.log('Still cannot play:', e));
                 }, { once: true });
@@ -107,7 +173,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Create Snowfall Effect
+    // ====================
+    // SNOWFALL
+    // ====================
     function createSnowfall() {
         const snowfallContainer = document.getElementById('snowfall');
         const snowflakes = ['❄', '❅', '❆', '✦', '✧', '•'];
@@ -124,28 +192,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
             snowfallContainer.appendChild(snowflake);
 
-            // Remove snowflake after animation
             setTimeout(() => {
                 snowflake.remove();
             }, 14000);
         }
 
-        // Create initial snowflakes
         for (let i = 0; i < 25; i++) {
             setTimeout(createSnowflake, i * 150);
         }
 
-        // Continue creating snowflakes
         setInterval(createSnowflake, 350);
     }
 
-    // Open Modal Function with animation
+    // ====================
+    // MODAL FUNCTIONS
+    // ====================
     function openModal(modal) {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
 
-    // Close Modal Function
     function closeModal(modal) {
         const content = modal.querySelector('.gift-modal-content');
         content.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
@@ -160,31 +226,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300);
     }
 
-    // Card Click - Open and Stream Text
+    // ====================
+    // CARD HANDLER
+    // ====================
     cardItem.addEventListener('click', () => {
         openModal(cardModal);
-        streamText(cardText, cardMessage);
+
+        if (!state.cardOpened) {
+            // First time opening - stream the text
+            streamText(cardText, cardMessage);
+            state.cardOpened = true;
+            cardItem.classList.add('opened');
+            saveState();
+        } else {
+            // Already opened - show full text immediately
+            showFullText(cardText, cardMessage);
+        }
     });
 
-    // Gift Sport Click
-    giftSport.addEventListener('click', () => {
-        openModal(sportModal);
-        animateSportReveal(sportModal);
-    });
-
-    // Gift Dinner Click
-    giftDinner.addEventListener('click', () => {
-        openModal(dinnerModal);
-        animateDinnerReveal(dinnerModal);
-    });
-
-    // Gift Concert Click
-    giftConcert.addEventListener('click', () => {
-        openModal(concertModal);
-        animateConcertReveal(concertModal);
-    });
-
-    // Stream Text Effect (like typing)
     function streamText(element, text) {
         element.innerHTML = '';
         let index = 0;
@@ -202,22 +261,61 @@ document.addEventListener('DOMContentLoaded', () => {
                 element.appendChild(cursor);
                 index++;
 
-                // Random typing speed for natural effect
                 const speed = Math.random() * 25 + 18;
                 setTimeout(typeChar, speed);
             } else {
-                // Remove cursor after typing is done
                 setTimeout(() => {
                     cursor.remove();
                 }, 2000);
             }
         }
 
-        // Start typing with a small delay
         setTimeout(typeChar, 600);
     }
 
-    // Animate Sport Modal Reveal
+    function showFullText(element, text) {
+        element.innerHTML = text.replace(/\n/g, '<br>');
+    }
+
+    // ====================
+    // GIFT HANDLERS
+    // ====================
+    giftSport.addEventListener('click', () => {
+        openModal(sportModal);
+        animateSportReveal(sportModal);
+
+        if (!state.giftsOpened.sport) {
+            state.giftsOpened.sport = true;
+            giftSport.classList.add('opened');
+            saveState();
+        }
+    });
+
+    giftDinner.addEventListener('click', () => {
+        openModal(dinnerModal);
+        animateDinnerReveal(dinnerModal);
+
+        if (!state.giftsOpened.dinner) {
+            state.giftsOpened.dinner = true;
+            giftDinner.classList.add('opened');
+            saveState();
+        }
+    });
+
+    giftConcert.addEventListener('click', () => {
+        openModal(concertModal);
+        animateConcertReveal(concertModal);
+
+        if (!state.giftsOpened.concert) {
+            state.giftsOpened.concert = true;
+            giftConcert.classList.add('opened');
+            saveState();
+        }
+    });
+
+    // ====================
+    // ANIMATION FUNCTIONS
+    // ====================
     function animateSportReveal(modal) {
         const badge = modal.querySelector('.sport-badge');
         const title = modal.querySelector('h2');
@@ -239,7 +337,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Animate Dinner Modal Reveal (Silver Tray)
     function animateDinnerReveal(modal) {
         const tray = modal.querySelector('.silver-tray');
         const icon = modal.querySelector('.cloche-icon');
@@ -247,7 +344,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const imageContainer = modal.querySelector('.dinner-image-container');
         const card = modal.querySelector('.reservation-card');
 
-        // Tray entrance
         if (tray) {
             tray.style.opacity = '0';
             tray.style.transform = 'scale(0.9)';
@@ -272,17 +368,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Animate Concert Modal Reveal (Ticket)
     function animateConcertReveal(modal) {
         const ticket = modal.querySelector('.concert-ticket');
-        const stub = modal.querySelector('.ticket-stub');
         const header = modal.querySelector('.ticket-header');
         const artist = modal.querySelector('.ticket-artist');
         const imageContainer = modal.querySelector('.ticket-image-container');
         const details = modal.querySelector('.ticket-details');
         const barcode = modal.querySelector('.ticket-barcode');
 
-        // Ticket slide in
         if (ticket) {
             ticket.style.opacity = '0';
             ticket.style.transform = 'translateX(-30px) rotate(-2deg)';
@@ -307,52 +400,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Close Modal Buttons
+    // ====================
+    // CLOSE MODAL HANDLERS
+    // ====================
     document.querySelectorAll('.close-modal').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const modal = e.target.closest('.gift-modal');
             closeModal(modal);
-
-            // Reset card text for next time
-            if (modal === cardModal) {
-                setTimeout(() => {
-                    cardText.innerHTML = '';
-                }, 300);
-            }
         });
     });
 
-    // Close modal on background click
     document.querySelectorAll('.gift-modal').forEach(modal => {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 closeModal(modal);
-
-                // Reset card text for next time
-                if (modal === cardModal) {
-                    setTimeout(() => {
-                        cardText.innerHTML = '';
-                    }, 300);
-                }
             }
         });
     });
 
-    // Escape key to close modal
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             document.querySelectorAll('.gift-modal.active').forEach(modal => {
                 closeModal(modal);
-                if (modal === cardModal) {
-                    setTimeout(() => {
-                        cardText.innerHTML = '';
-                    }, 300);
-                }
             });
         }
     });
 
-    // Add touch feedback for mobile
+    // ====================
+    // TOUCH FEEDBACK
+    // ====================
     document.querySelectorAll('.clickable-item').forEach(item => {
         item.addEventListener('touchstart', () => {
             item.style.transform = 'scale(1.08) translateY(-3px)';
@@ -363,7 +439,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
     });
 
-    // Prevent context menu on long press (mobile)
     document.addEventListener('contextmenu', (e) => {
         if (e.target.closest('.clickable-item') || e.target.closest('.easter-egg')) {
             e.preventDefault();
@@ -377,10 +452,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const easterEggNumber = document.getElementById('ee-number');
     const easterEggImage = document.getElementById('ee-image');
 
-    // Track found easter eggs
-    const foundEasterEggs = new Set();
-
-    // Easter egg click handler
     function handleEasterEggClick(e) {
         const easterEgg = e.target.closest('.easter-egg');
         if (!easterEgg) return;
@@ -388,14 +459,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const eggNumber = easterEgg.dataset.easter;
         if (!eggNumber) return;
 
-        // Mark as found
-        foundEasterEggs.add(eggNumber);
-
         // Update modal content
         easterEggNumber.textContent = eggNumber;
         easterEggImage.src = `assets/images/easter-eggs/${eggNumber}.jpg`;
 
-        // Handle image load error (fallback to png or show placeholder)
         easterEggImage.onerror = function() {
             this.src = `assets/images/easter-eggs/${eggNumber}.png`;
             this.onerror = function() {
@@ -406,12 +473,21 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         };
 
-        // Open modal
         openModal(easterEggModal);
         animateEasterEggReveal();
+
+        // Mark as found and transform to snowman
+        if (!state.easterEggsFound.includes(eggNumber)) {
+            state.easterEggsFound.push(eggNumber);
+            saveState();
+        }
+
+        // Add found class after modal closes
+        setTimeout(() => {
+            easterEgg.classList.add('found');
+        }, 300);
     }
 
-    // Animate Easter Egg Modal Reveal
     function animateEasterEggReveal() {
         const header = easterEggModal.querySelector('.easter-egg-header');
         const title = easterEggModal.querySelector('h2');
@@ -433,12 +509,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Attach click handlers to all easter eggs
     document.querySelectorAll('.easter-egg').forEach(egg => {
         egg.addEventListener('click', handleEasterEggClick);
     });
 
-    // Add touch feedback for easter eggs
     document.querySelectorAll('.easter-egg').forEach(item => {
         item.addEventListener('touchstart', () => {
             item.style.transform = 'scale(1.15)';
