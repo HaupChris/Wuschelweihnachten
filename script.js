@@ -31,13 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
     Der Haubatz. 
     
-    Zwar nicht in Persona, aber dafür ganz Informatiker mäßig. 
+    Zwar nicht in Persona, aber dafür ganz im Informatiker Style. 
     
-    Und los geht der Spaß!
+    Also lass uns beginnen, es ist Zeit für die Bescherung!
     
     Das erste und größte Geschenk? Das bist du! Bzw. ich... also WIR. 
     
-    Es ist nämlich so, dass es einfach immer schöner wird. Mit dir. Also mit uns. Und deswegen können wir 
+    Es ist nämlich so, dass es einfach immer schöner wird. Mit dir. Mit uns. Und deswegen können wir 
     uns auch uns immer wieder gegenseitig schenken und es ist jedes mal wieder toll. 
     
     Und wie machen wir das? 
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     Bevor du das machst, hab ich noch ein paar Worte für dich: 
     
-    Ich bin sooo froh, dass du stets an meiner Seite bist. Ich danke dir von ganzem Herzen für den Support. 
+    Ich bin unendlich froh, dass du stets an meiner Seite bist. Ich danke dir von ganzem Herzen für den Support, den du mir jeden Tag entgegen bringst. 
     Ich weiß, dass ich mich voll und ganz auf dich verlassen kann und du kannst dich auch immer auf mich verlassen. 
     Genauso danke ich dir für deine Leichtigkeit, die dazu führt, dass du zu fast jeder Zeit ein Lachen parat hast - und wenn es gerade nicht da ist, hab ich wirklich wenig Mühe es zu dir zurück zu bringen. 
     
@@ -55,7 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     Hoffentlich haben wir noch ganz oft Lust uns uns gegenseitig wieder zu schenken!
     
-    Ich freu mich auf dich! 
+    Ich freu mich auf dich!
+    
+    
+    Und nun ist es Zeit für die Bescherung!  
     
     Dein Haubi
     
@@ -200,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 index++;
 
                 // Random typing speed for natural effect
-                const speed = Math.random() * 35 + 18;
+                const speed = Math.random() * 25 + 18;
                 setTimeout(typeChar, speed);
             } else {
                 // Remove cursor after typing is done
