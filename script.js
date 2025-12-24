@@ -12,12 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const saved = localStorage.getItem(STATE_KEY);
             return saved ? JSON.parse(saved) : {
                 cardOpened: false,
+                cardStreamingComplete: false,
                 giftsOpened: { sport: false, dinner: false, concert: false },
                 easterEggsFound: []
             };
         } catch (e) {
             return {
                 cardOpened: false,
+                cardStreamingComplete: false,
                 giftsOpened: { sport: false, dinner: false, concert: false },
                 easterEggsFound: []
             };
@@ -54,6 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const concertModal = document.getElementById('concert-modal');
 
     const cardText = document.getElementById('card-text');
+
+    // Streaming state for card text
+    let cardStreamingState = {
+        isStreaming: false,
+        isComplete: state.cardStreamingComplete || false,
+        currentIndex: 0,
+        currentHTML: '',
+        timeoutId: null
+    };
 
     // Card message - Replace this with your personal message
     const cardMessage = `Liiieeebeee Julesia :)
@@ -213,6 +224,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function closeModal(modal) {
+        // Stop card streaming if closing card modal
+        if (modal === cardModal && cardStreamingState.isStreaming) {
+            stopCardStreaming();
+        }
+
         const content = modal.querySelector('.gift-modal-content');
         content.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
         content.style.transform = 'translateY(30px) scale(0.95)';
@@ -232,45 +248,123 @@ document.addEventListener('DOMContentLoaded', () => {
     cardItem.addEventListener('click', () => {
         openModal(cardModal);
 
+        if (cardStreamingState.isComplete) {
+            // Streaming already finished - show full text immediately
+            showFullText(cardText, cardMessage);
+        } else if (cardStreamingState.isStreaming) {
+            // Was streaming before - resume from current position
+            resumeStreamText(cardText, cardMessage);
+        } else if (cardStreamingState.currentIndex > 0) {
+            // Was partially streamed - resume from saved position
+            resumeStreamText(cardText, cardMessage);
+        } else {
+            // First time - start streaming
+            startStreamText(cardText, cardMessage);
+        }
+
         if (!state.cardOpened) {
-            // First time opening - stream the text
-            streamText(cardText, cardMessage);
             state.cardOpened = true;
             cardItem.classList.add('opened');
             saveState();
-        } else {
-            // Already opened - show full text immediately
-            showFullText(cardText, cardMessage);
         }
     });
 
-    function streamText(element, text) {
+    function stopCardStreaming() {
+        if (cardStreamingState.timeoutId) {
+            clearTimeout(cardStreamingState.timeoutId);
+            cardStreamingState.timeoutId = null;
+        }
+        cardStreamingState.isStreaming = false;
+        // Save current HTML state
+        cardStreamingState.currentHTML = cardText.innerHTML.replace(/<span class="cursor"><\/span>/g, '');
+        // Remove cursor
+        const cursor = cardText.querySelector('.cursor');
+        if (cursor) cursor.remove();
+    }
+
+    function startStreamText(element, text) {
         element.innerHTML = '';
-        let index = 0;
+        cardStreamingState.currentIndex = 0;
+        cardStreamingState.currentHTML = '';
+        cardStreamingState.isStreaming = true;
+        cardStreamingState.isComplete = false;
+
         const cursor = document.createElement('span');
         cursor.className = 'cursor';
 
         function typeChar() {
-            if (index < text.length) {
-                const char = text.charAt(index);
+            if (!cardStreamingState.isStreaming) {
+                return; // Stop if streaming was interrupted
+            }
+
+            if (cardStreamingState.currentIndex < text.length) {
+                const char = text.charAt(cardStreamingState.currentIndex);
                 if (char === '\n') {
-                    element.innerHTML += '<br>';
+                    element.innerHTML = cardStreamingState.currentHTML + '<br>';
+                    cardStreamingState.currentHTML += '<br>';
                 } else {
-                    element.innerHTML += char;
+                    element.innerHTML = cardStreamingState.currentHTML + char;
+                    cardStreamingState.currentHTML += char;
                 }
                 element.appendChild(cursor);
-                index++;
+                cardStreamingState.currentIndex++;
 
                 const speed = Math.random() * 25 + 18;
-                setTimeout(typeChar, speed);
+                cardStreamingState.timeoutId = setTimeout(typeChar, speed);
             } else {
-                setTimeout(() => {
+                cardStreamingState.isComplete = true;
+                cardStreamingState.isStreaming = false;
+                state.cardStreamingComplete = true;
+                saveState();
+                cardStreamingState.timeoutId = setTimeout(() => {
                     cursor.remove();
                 }, 2000);
             }
         }
 
-        setTimeout(typeChar, 600);
+        cardStreamingState.timeoutId = setTimeout(typeChar, 600);
+    }
+
+    function resumeStreamText(element, text) {
+        // Restore the current HTML state
+        element.innerHTML = cardStreamingState.currentHTML;
+        cardStreamingState.isStreaming = true;
+
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        element.appendChild(cursor);
+
+        function typeChar() {
+            if (!cardStreamingState.isStreaming) {
+                return; // Stop if streaming was interrupted
+            }
+
+            if (cardStreamingState.currentIndex < text.length) {
+                const char = text.charAt(cardStreamingState.currentIndex);
+                if (char === '\n') {
+                    element.innerHTML = cardStreamingState.currentHTML + '<br>';
+                    cardStreamingState.currentHTML += '<br>';
+                } else {
+                    element.innerHTML = cardStreamingState.currentHTML + char;
+                    cardStreamingState.currentHTML += char;
+                }
+                element.appendChild(cursor);
+                cardStreamingState.currentIndex++;
+
+                const speed = Math.random() * 25 + 18;
+                cardStreamingState.timeoutId = setTimeout(typeChar, speed);
+            } else {
+                cardStreamingState.isComplete = true;
+                cardStreamingState.isStreaming = false;
+                state.cardStreamingComplete = true;
+                saveState();
+                cardStreamingState.timeoutId = setTimeout(() => {
+                    cursor.remove();
+                }, 2000);
+            }
+        }
+
+        cardStreamingState.timeoutId = setTimeout(typeChar, 100);
     }
 
     function showFullText(element, text) {
