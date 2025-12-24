@@ -641,6 +641,152 @@ body {
     background: linear-gradient(90deg, #ecf0f1, #ffffff, #ecf0f1);
 }
 
+/* ==================== */
+/* OPENED GIFT STATES */
+/* ==================== */
+
+/* Base opened gift style - hide lid and bow, show open box */
+.gift-item.opened .gift-lid,
+.gift-item.opened .bow {
+    display: none;
+}
+
+.gift-item.opened .gift-box {
+    position: relative;
+}
+
+/* Create the opened box icon */
+.gift-item.opened::after {
+    position: absolute;
+    font-size: 2rem;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: floatIcon 2s ease-in-out infinite;
+    z-index: 10;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+}
+
+@keyframes floatIcon {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-8px); }
+}
+
+/* Sport gift opened - Beachvolleyball */
+#gift-sport.opened::after {
+    content: '🏐';
+}
+
+/* Dinner gift opened - Wine bottle */
+#gift-dinner.opened::after {
+    content: '🍷';
+}
+
+/* Concert gift opened - Tickets */
+#gift-concert.opened::after {
+    content: '🎫';
+}
+
+/* Make gift body look like open box */
+.gift-item.opened .gift-body {
+    border-top: 3px solid rgba(0,0,0,0.2);
+    box-shadow:
+        inset 0 10px 20px rgba(0,0,0,0.3),
+        0 6px 12px rgba(0,0,0,0.4);
+}
+
+/* Reduce wiggle for opened gifts */
+.gift-item.opened {
+    animation: none;
+}
+
+.gift-item.opened:hover {
+    transform: scale(1.05);
+}
+
+/* ==================== */
+/* OPENED CARD STATE */
+/* ==================== */
+
+.card-item.opened .envelope-flap {
+    transform: rotateX(180deg);
+    transform-origin: top;
+    border-top-color: #d4c9b5;
+}
+
+.card-item.opened .heart-seal {
+    top: -8px;
+    animation: none;
+    opacity: 0.7;
+}
+
+.card-item.opened .card-envelope::before {
+    content: '💌';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    animation: floatIcon 2s ease-in-out infinite;
+    z-index: 10;
+}
+
+/* Reduce wiggle for opened card */
+.card-item.opened {
+    animation: none;
+}
+
+.card-item.opened:hover {
+    transform: scale(1.05);
+}
+
+/* ==================== */
+/* FOUND EASTER EGG STATES */
+/* ==================== */
+
+/* Hide original content when found */
+.easter-egg.found > * {
+    display: none !important;
+}
+
+/* Show snowman instead */
+.easter-egg.found::after {
+    content: '⛄';
+    display: block;
+    font-size: 1.2rem;
+    animation: snowmanWiggle 3s ease-in-out infinite;
+}
+
+@keyframes snowmanWiggle {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+}
+
+/* Specific sizing for different Easter eggs when found */
+.moon.easter-egg.found::after {
+    font-size: 1.5rem;
+}
+
+.star.easter-egg.found::after {
+    font-size: 1.3rem;
+}
+
+.ornament.easter-egg.found::after {
+    font-size: 0.9rem;
+}
+
+.flying-santa.easter-egg.found {
+    animation: none !important;
+}
+
+.flying-santa.easter-egg.found::after {
+    font-size: 1.3rem;
+}
+
+.snowman.easter-egg.found::after {
+    font-size: 1.8rem;
+}
+
 /* Ground/Snow */
 .ground {
     position: absolute;
